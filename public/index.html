@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="foodApp">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Food Order App</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+        #food-list              { margin-bottom:30px; }
+    </style>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="core.js"></script>
+
 </head>
-<body>
+<!-- SET THE CONTROLLER AND GET ALL FOOD -->
+<body ng-controller="mainController">
+<div class="container">
+
+    <!-- HEADER AND FOOD COUNT -->
+    <div class="jumbotron text-center">
+        <h1>Please Order Here <span class="label label-info">{{ food.length }}</span></h1>
+    </div>
+
+    <!-- FOOD LIST -->
+    <div id="food-list" class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+
+            <!-- LOOP OVER THE FOOD IN $scope.food -->
+            <div class="checkbox" ng-repeat="afood in food">
+                <label>
+                    <input type="checkbox" ng-click="deleteFood(afood._id)"> {{ afood.text }}
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FORM TO CREATE FOOD -->
+    <div id="food-form" class="row">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+            <form>
+                <div class="form-group">
+
+                    <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                    <input type="text" class="form-control input-lg text-center" placeholder="Fries" ng-model="formData.text">
+                </div>
+
+                <!-- createFood() WILL CREATE NEW FOODS -->
+                <button type="submit" class="btn btn-primary btn-lg" ng-click="createFood()">Add</button>
+            </form>
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>

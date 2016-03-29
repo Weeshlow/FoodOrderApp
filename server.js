@@ -20,7 +20,8 @@ app.use(methodOverride());
 
 // define model =================
 var Food = mongoose.model('Food', {
-    text: String
+    name: String,
+    price: Number
 });
 
 // routes ======================================================================
