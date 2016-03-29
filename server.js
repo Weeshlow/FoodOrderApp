@@ -46,7 +46,8 @@ app.post('/api/food', function (req, res) {
 
     // create a food, information comes from AJAX request from Angular
     Food.create({
-        text: req.body.text,
+        name: req.body.name,
+        price: req.body.price,
         done: false
     }, function (err, food) {
         if (err)
