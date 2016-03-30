@@ -5,6 +5,7 @@ angular
     .controller('mainController', ['$scope','$http','Food', function($scope, $http, Food) {
         $scope.formData = {};
         $scope.loading = true;
+        $scope.totalPrice = 0;
 
         // GET =====================================================================
         // when landing on the page, get all food and show them
@@ -52,4 +53,23 @@ angular
                     $scope.food = data; // assign our new list of food
                 });
         };
+
+
+        //Get total
+
+        $scope.getTotalPrice= function(){
+            if ($scope.food != null){
+
+                for (var i in $scope.food){
+                    $scope.totalPrice += $scope.food[i].price;
+                }
+
+
+
+            }
+
+        }
+
+
+
     }]);
