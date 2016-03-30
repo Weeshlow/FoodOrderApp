@@ -11,40 +11,49 @@
 
     <!-- SCROLLS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <style>
-        html                    { overflow-y:scroll; }
-        body                    { padding-top:50px; }
-        #food-list              { margin-bottom:30px; }
+        html 					{ overflow-y:scroll; }
+        body 					{ padding-top:50px; }
+        #food-list 				{ margin-bottom:30px; }
+        #food-form 	 			{ margin-bottom:50px; }
     </style>
 
     <!-- SPELLS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
-    <script src="core.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+
+    <script src="js/controllers/main.js"></script> <!-- load up our controller -->
+    <script src="js/services/food.js"></script> <!-- load our food service -->
+    <script src="js/core.js"></script> <!-- load our main application -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular-route.min.js"></script>
 
 </head>
-<!-- SET THE CONTROLLER AND GET ALL FOOD -->
+<!-- SET THE CONTROLLER -->
 <body ng-controller="mainController">
 <div class="container">
 
     <!-- HEADER AND FOOD COUNT -->
     <div class="jumbotron text-center">
-        <h1>Please Order Here <span class="label label-info">{{ food.length }}</span></h1>
+        <h1>Add a food order here <span class="label label-info">{{ food.length }}</span></h1>
     </div>
 
     <!-- FOOD LIST -->
     <div id="food-list" class="row">
         <div class="col-sm-4 col-sm-offset-4">
 
+
+
             <!-- LOOP OVER THE FOOD IN $scope.food -->
             <div class="checkbox" ng-repeat="afood in food">
                 <label>
                     <input type="checkbox" ng-click="deleteFood(afood._id)"> {{ afood.name }}
                 </label>
-                <label>
-                    <input type="checkbox" ng-click="deleteFood(afood._id)"> {{ afood.price }}
-                </label>
+                <label> ${{ afood.price }}</label>
             </div>
+
+            <p class="text-center" ng-show="loading">
+                <span class="fa fa-spinner fa-spin fa-3x"></span>
+            </p>
 
         </div>
     </div>
@@ -56,9 +65,8 @@
                 <div class="form-group">
 
                     <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                    <input type="text" class="form-control input-lg text-center" placeholder="Fries" ng-model="formData.name">
-                    <input type="text" class="form-control input-lg text-center" placeholder="5.2" ng-model="formData.price">
-
+                    <input type="text" class="form-control input-lg text-center" placeholder="Coke" ng-model="formData.name">
+                    <input type="text" class="form-control input-lg text-center" placeholder="2.0" ng-model="formData.price">
                 </div>
 
                 <!-- createFood() WILL CREATE NEW FOODS -->
