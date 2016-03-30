@@ -5,6 +5,8 @@ angular
     .controller('mainController', ['$scope','$http','Food', function($scope, $http, Food) {
         $scope.formData = {};
         $scope.loading = true;
+        $scope.subtotal = 0;
+        $scope.totalTax = 0;
         $scope.totalPrice = 0;
 
         // GET =====================================================================
@@ -59,11 +61,11 @@ angular
 
         $scope.getTotalPrice= function(){
             if ($scope.food != null){
-
                 for (var i in $scope.food){
-                    $scope.totalPrice += $scope.food[i].price;
+                    $scope.subtotal += $scope.food[i].price;
                 }
-
+                $scope.totalTax = $scope.subtotal * 0.075;
+                $scope.totalPrice = $scope.subtotal + $scope.totalTax;
 
 
             }

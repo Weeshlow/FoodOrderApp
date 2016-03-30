@@ -10,14 +10,9 @@
     <title>Food Order App</title>
 
     <!-- SCROLLS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <!-- load bootstrap -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <style>
-        html 					{ overflow-y:scroll; }
-        body 					{ padding-top:50px; }
-        #food-list 				{ margin-bottom:30px; }
-        #food-form 	 			{ margin-bottom:50px; }
-    </style>
 
     <!-- SPELLS -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
@@ -25,7 +20,10 @@
     <script src="js/controllers/main.js"></script> <!-- load up our controller -->
     <script src="js/services/food.js"></script> <!-- load our food service -->
     <script src="js/core.js"></script> <!-- load our main application -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular-route.min.js"></script>
+
+
+    <!-- Customized style -->
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 <!-- SET THE CONTROLLER -->
@@ -34,57 +32,70 @@
 
     <!-- HEADER AND FOOD COUNT -->
     <div class="jumbotron text-center">
-        <h1>Add a food order here <span class="label label-info">{{ food.length }}</span></h1>
+        <h2>Food Order System</h2>
     </div>
 
-    <!-- FOOD LIST -->
-    <div id="food-list" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
 
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <th><input type="text" class="form-control" placeholder="Coke" ng-model="formData.name"/></th>
+            <th><input type="text" class="form-control" placeholder="2.0" ng-model="formData.price"/></th>
+            <th>
+                <button type="submit" class="btn btn-default btn-primary" ng-click="createFood()"> Add </button>
+            </th>
+        </tr>
+        </thead>
 
-
-            <!-- LOOP OVER THE FOOD IN $scope.food -->
-            <div class="checkbox" ng-repeat="afood in food">
-                <label>
-                    <input type="checkbox" ng-click="deleteFood(afood._id)"> {{ afood.name }}
-                </label>
-                <label> ${{ afood.price }}</label>
-            </div>
-
-            <p class="text-center" ng-show="loading">
-                <span class="fa fa-spinner fa-spin fa-3x"></span>
-            </p>
-
-        </div>
-    </div>
-
-    <!-- FORM TO CREATE FOOD -->
-    <div id="food-form" class="row">
-        <div class="col-sm-8 col-sm-offset-2 text-center">
-            <form>
-                <div class="form-group">
-
-                    <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                    <input type="text" class="form-control input-lg text-center" placeholder="Coke" ng-model="formData.name">
-                    <input type="text" class="form-control input-lg text-center" placeholder="2.0" ng-model="formData.price">
-                </div>
-
-                <!-- createFood() WILL CREATE NEW FOODS -->
-                <button type="submit" class="btn btn-primary btn-lg" ng-click="createFood()">Add</button>
-            </form>
-        </div>
-    </div>
+        <tbody>
+        <tr ng-repeat="afood in food">
+            <td>{{ afood.name }}</td>
+            <td>${{ afood.price }}</td>
+            <td>
+                <button ng-click="deleteFood(afood._id)" class="btn btn-default btn-danger">Remove</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
     <!-- DISPLAY TOTAL PRICE -->
-    <div>
-        <div class="col-sm-8 col-sm-offset-2 text-center">
-            <button class="btn-primary" ng-click="getTotalPrice()"> Calculate Total Price</button>
-            <lable>
-                <label> {{ totalPrice }}</label>
-            </lable>
+    <div class="container-fluid">
+        <div class="row">
+            <div class = ".col-xs-6 .col-md-4">
+                <label>Total Number: {{ food.length }}</label>
+            </div>
+
+            <div class=".col-xs-6 .col-md-4 text-center">
+
+                <button class="btn btn-info" ng-click="getTotalPrice()"> Calculate Total Price</button>
+            </div>
+            <div class=".col-xs-6 .col-md-4 text-center">
+                <lable id="currency-default">
+                    Subtotal: {{ subtotal | currency }}
+                </lable>
+            </div>
+            <div class=".col-xs-6 .col-md-4 text-center">
+                <lable id="currency-default">
+                    Tax : {{ totalTax | currency }}
+                </lable>
+            </div>
+            <div class=".col-xs-6 .col-md-4 text-center">
+                <lable id="currency-default">
+                    TotalPrice : {{ totalPrice | currency }}
+                </lable>
+            </div>
+
+
+
+        </div>
+
 
     </div>
-
 </div>
 
 </body>
