@@ -1,0 +1,3 @@
+I changed the index.html by
+1. transferred some css style scripts in a separate folder named css/style.css, in this way it’s more clear and less redundant in the heading. 
+2. changed the view to a table format because I think this way creating, adding and deleting a item/order is more straightforward.  
